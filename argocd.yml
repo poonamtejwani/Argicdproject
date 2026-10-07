@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: product-deployment
+  labels:
+    app: telusko
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: telusko
+  template:
+    metadata:
+      labels:
+        app: telusko
+    spec:
+      containers:
+      - name: cont1
+        image: hacker123shiva/springbt-in-docker:latest
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: teluskoappsvc
+spec:
+  type: LoadBalancer
+  selector:
+    app: telusko
+  ports:
+    - port: 80
+      targetPort: 8080
+...
